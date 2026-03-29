@@ -1,4 +1,4 @@
-# pages/2_🔧_ROI_Calculator.py
+# pages/2_ROI_Calculator.py
 # Modification ROI: break-even bar + cross-route ROI table.
 
 import streamlit as st
@@ -17,13 +17,12 @@ model         = load_model()
 if "active_route" not in st.session_state:
     st.session_state.active_route = "Highway (Optimal)"
 
-# ─────────────────────────────────────────────
 st.title("🔧 Modification ROI Calculator")
 st.write("Before spending money on any car upgrade, see exactly when it pays for itself — "
          "on every route type.")
 st.divider()
 
-# ── Route context for this ROI calculation ──
+#Route context for this ROI calculation
 roi_route  = st.selectbox(
     "Calculate ROI against which driving environment?",
     list(ROUTE_MULTIPLIERS.keys()),
@@ -40,7 +39,7 @@ st.info(
 )
 st.divider()
 
-# ── Modification inputs ──
+#Modification inputs
 col1, col2, col3 = st.columns([1, 1, 1])
 
 with col1:
@@ -93,7 +92,7 @@ with col3:
               delta=f"-${roi['monthly_save']:.2f}/mo")
     st.metric("Annual Fuel Savings", f"${roi['annual_save']:.2f}")
 
-# ── Verdict + break-even bar ──
+#Verdict + break-even bar
 st.divider()
 if roi["breakeven_months"] is not None:
     bm = roi["breakeven_months"]
@@ -139,7 +138,7 @@ if roi["breakeven_months"] is not None:
     )
     st.caption(f"📊 5-year net gain after recouping cost: **${roi['lifetime_net']:,.2f}**")
 
-    # ── Cross-route ROI comparison ──
+    #Cross-route ROI comparison
     st.divider()
     st.subheader("🔁 Same Modification Across All 5 Routes")
     st.write(f"Does **{mod_name}** (${part_cost:,.0f}) pay off faster on some routes?")

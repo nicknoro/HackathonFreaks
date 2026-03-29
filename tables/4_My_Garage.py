@@ -1,4 +1,4 @@
-# pages/4_📁_My_Garage.py
+# pages/4_My_Garage.py
 # Save, compare, export vehicle configurations.
 
 import streamlit as st
@@ -21,7 +21,7 @@ if "active_route" not in st.session_state:
 GARAGE_FILE = "garage_data.csv"
 
 # ─────────────────────────────────────────────
-st.title("📁 My Digital Garage")
+st.title("My Digital Garage")
 st.write("Save every vehicle configuration you test. Compare them side-by-side. Export anytime.")
 st.divider()
 
@@ -51,7 +51,7 @@ with g1:
     )
 with g2:
     st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("💾 Save to Garage", use_container_width=True, type="primary"):
+    if st.button("Save to Garage", use_container_width=True, type="primary"):
         if car_name.strip():
             new_row = {
                 "Name":              car_name.strip(),
@@ -84,7 +84,7 @@ if os.path.isfile(GARAGE_FILE):
     # ── Quick comparison: best MPG vs cheapest route ──
     if len(garage_df) >= 2:
         st.divider()
-        st.subheader("🏆 Garage Insights")
+        st.subheader("Garage Insights")
         best_mpg  = garage_df.loc[garage_df["Adj. MPG"].idxmax()]
         cheapest  = garage_df.loc[garage_df["Monthly Cost ($)"].idxmin()]
         ins1, ins2 = st.columns(2)
@@ -110,7 +110,7 @@ if os.path.isfile(GARAGE_FILE):
             use_container_width=True,
         )
     with clr_col:
-        if st.button("🗑️ Clear All", use_container_width=True):
+        if st.button("Clear All", use_container_width=True):
             os.remove(GARAGE_FILE)
             st.rerun()
 else:

@@ -1,4 +1,4 @@
-# pages/1_🗺️_Route_Planner.py
+# pages/1_Route_Planner.py
 # Shows all 5 routes on an interactive Folium map.
 # Active route is highlighted; others are dimmed.
 
@@ -17,12 +17,12 @@ st.set_page_config(page_title="Route Planner — DriveWise Pro",
 vehicle, fuel = render_sidebar()
 model         = load_model()
 
-# ── Default active route from session state ──
+#Default active route from session state
 if "active_route" not in st.session_state:
     st.session_state.active_route = "Highway (Optimal)"
 
 # ─────────────────────────────────────────────
-st.title("🗺️ Interactive Route Planner")
+st.title("Interactive Route Planner")
 st.write("All 5 driving environments plotted simultaneously. "
          "Select one to highlight it and see its fuel metrics.")
 st.divider()
@@ -36,7 +36,7 @@ st.session_state.active_route = selected_route
 multiplier = ROUTE_MULTIPLIERS[selected_route]
 metrics    = compute_metrics(model, vehicle, fuel, multiplier)
 
-# ── Metric bar ──
+#Metric bar
 c1, c2, c3 = st.columns(3)
 c1.metric("Route MPG",        f"{metrics['adjusted_mpg']:.1f} mpg")
 c2.metric("Monthly Cost",     f"${metrics['fuel_cost']:.2f}")
@@ -44,7 +44,7 @@ c3.metric("Efficiency Multi", f"{multiplier}×")
 
 st.divider()
 
-# ── Map ──
+#Map
 ROUTE_COLORS = {
     "Highway (Optimal)":     "green",
     "City (Stop-and-Go)":    "orange",
@@ -89,9 +89,9 @@ st_folium(fmap, width="100%", height=460)
 st.caption("🟢 Highway  🟠 City  🔴 Mountainous  🔵 Suburban  ⬛ Off-Road  "
            "— Bold = selected route")
 
-# ── Cross-route table ──
+#Cross-route table
 st.divider()
-st.subheader("🌐 All Routes: Side-by-Side Cost Comparison")
+st.subheader("All Routes: Side-by-Side Cost Comparison")
 rows = []
 for rname, rmult in ROUTE_MULTIPLIERS.items():
     m = compute_metrics(model, vehicle, fuel, rmult)
@@ -103,4 +103,4 @@ for rname, rmult in ROUTE_MULTIPLIERS.items():
         "Annual Cost":     f"${m['fuel_cost']*12:.2f}",
         "Efficiency":      f"{m['efficiency_score']}/100",
     })
-st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+st.dataframe(pd.DataFrame(rows), width='stretch', hide_index=True)

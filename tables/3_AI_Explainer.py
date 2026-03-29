@@ -1,4 +1,4 @@
-# pages/3_🧠_AI_Explainer.py
+# pages/3_AI_Explainer.py
 # Explainable AI: feature importance bars, plain-English verdict,
 # what-if sensitivity analysis — all route-aware.
 
@@ -22,7 +22,7 @@ if "active_route" not in st.session_state:
     st.session_state.active_route = "Highway (Optimal)"
 
 # ─────────────────────────────────────────────
-st.title("🧠 Explainable AI — Why This MPG?")
+st.title("Explainable AI — Why This MPG?")
 st.write(
     "Transparency into every prediction. "
     "Drag any sidebar slider and the analysis updates live."
@@ -39,12 +39,12 @@ multiplier = ROUTE_MULTIPLIERS[xai_route]
 metrics    = compute_metrics(model, vehicle, fuel, multiplier)
 
 st.info(
-    f"📍 Explaining **{xai_route}** → "
+    f"Explaining **{xai_route}** → "
     f"Adjusted MPG: **{metrics['adjusted_mpg']:.1f}**"
 )
 
 if model is None:
-    st.warning("⚠️ Model not loaded — XAI unavailable. Run the app once with internet to auto-train.")
+    st.warning("Model not loaded — XAI unavailable. Run the app once with internet to auto-train.")
     st.stop()
 
 # ─────────────────────────────────────────────
@@ -123,7 +123,7 @@ for i, feat in enumerate(FEATURE_NAMES):
             unsafe_allow_html=True,
         )
 
-# ── Plain-English verdict ──
+#Plain-English verdict
 top_idx     = int(importances.argmax())
 top_feature = FEATURE_NAMES[top_idx]
 top_pct     = importance_pct[top_idx]
@@ -134,13 +134,13 @@ verdict_map = {
     "Cylinders":    f"**Engine cylinders ({vehicle['cylinders']})** lead the prediction at **{top_pct}%** influence. {'More cylinders = higher displacement = more fuel.' if vehicle['cylinders'] > 4 else 'Smaller cylinder count is a natural efficiency advantage.'}",
     "Acceleration": f"**Acceleration index ({vehicle['accel']})** is the top-weighted feature at **{top_pct}%** — reflects how aggressively the engine is tuned relative to weight.",
 }
-st.info(f"🤖 **AI Insight:** {verdict_map[top_feature]}")
+st.info(f"**AI Insight:** {verdict_map[top_feature]}")
 
 # ─────────────────────────────────────────────
 #  WHAT-IF SENSITIVITY ANALYSIS
 # ─────────────────────────────────────────────
 st.divider()
-st.subheader("🔬 What-If Sensitivity Analysis")
+st.subheader("What-If Sensitivity Analysis")
 st.write(f"Hold everything constant. Which single change moves the needle most on **{xai_route}**?")
 
 deltas_to_try = {
@@ -186,7 +186,7 @@ for j, (label, alt_vals) in enumerate(deltas_to_try.items()):
 
 # ── All-routes prediction table ──
 st.divider()
-st.subheader("📋 Predicted MPG — Same Car, All Routes")
+st.subheader("Predicted MPG — Same Car, All Routes")
 route_rows = []
 for rname, rmult in ROUTE_MULTIPLIERS.items():
     m = compute_metrics(model, vehicle, fuel, rmult)

@@ -1,6 +1,6 @@
 # ─────────────────────────────────────────────
 #  app.py  —  ENTRY POINT / HOME
-#  Run with:  streamlit run app.py
+#  Run with:  streamlit run main.py
 # ─────────────────────────────────────────────
 import streamlit as st
 import pandas as pd
