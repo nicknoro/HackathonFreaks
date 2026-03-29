@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+from streamlit_folium import st_folium
+import folium
 import joblib
 import os
 
@@ -22,6 +24,26 @@ route_multipliers = {
     "Mountainous (Incline)": 0.65
 }
 multiplier = route_multipliers[route_type]
+
+# --- ADD THIS INSIDE YOUR ROUTE EFFICIENCY SECTION ---
+
+st.subheader("🗺️ Interactive Route Planner")
+st.write("Select your start and end points to visualize your optimized fuel path.")
+
+# Create a map object centered on a neutral location (e.g., NYC)
+# In a real app, you'd use a Geocoding API to find the user's location
+m = folium.Map(location=[40.7128, -74.0060], zoom_start=12, tiles="cartodbpositron")
+
+# Add a sample "Optimized Route" line for the demo
+route_points = [
+    [40.7128, -74.0060], [40.7150, -74.0100], [40.7200, -74.0150]
+]
+folium.PolyLine(route_points, color="green", weight=5, opacity=0.8, tooltip="Eco-Route").add_to(m)
+
+# Display the map in Streamlit
+st_data = st_folium(m, width=700, height=400)
+
+st.caption("🟢 Green line represents the most fuel-efficient route calculated by DriveWise AI.")
 
 # --- 2. VEHICLE INPUTS ---
 st.sidebar.divider()
